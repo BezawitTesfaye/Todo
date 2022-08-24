@@ -1,6 +1,10 @@
-class Todo {
+/*
+  Class name conflict
+  Todo class to TodoNote
+*/
+class TodoNote {
   final String note;
   final String noteOwner;
 
-  Todo(this.note, this.noteOwner);
+  TodoNote(this.note, this.noteOwner);
 }

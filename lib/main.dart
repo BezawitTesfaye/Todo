@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/todo_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,8 +22,13 @@ class MyApp extends StatelessWidget {
 }
 
 class Todo extends StatelessWidget {
+  // Todo(String s, {Key? key}) : super(key: key);
   Todo({Key? key}) : super(key: key);
-   List<String> items=["abc", "def", "ghi", "klm", "nop"];
+   // List<String> items=["abc", "def", "ghi", "klm", "nop"];
+  final List<TodoNote> todoNotes = [
+    TodoNote('some note', 'Beza'),
+    TodoNote('another note', 'Achileas')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +39,14 @@ class Todo extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
-            key: ValueKey(items[index]),
+            key: ValueKey(todoNotes[index]),
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(items[index])),
+                child: Text(todoNotes[index].note)),
           );
         },
-        itemCount: items.length,
+        itemCount: todoNotes.length,
       ),
     );
   }
