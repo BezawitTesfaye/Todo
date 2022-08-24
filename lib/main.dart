@@ -16,15 +16,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Todo(),
+      home: const Todo(),
     );
   }
 }
 class Todo extends StatefulWidget {
+  const Todo({Key? key}) : super(key: key);
+
   @override
-  _TodoState createState() => _TodoState();
+  TodoState createState() => TodoState();
 }
-class _TodoState extends State<Todo> {
+class TodoState extends State<Todo> {
   // Todo(String s, {Key? key}) : super(key: key);
   TextEditingController controller = TextEditingController();
 
@@ -34,12 +36,10 @@ class _TodoState extends State<Todo> {
     TodoNote('another note', 'Achileas')
   ];
 
-  void _UpdateNote() {
+  void _updateNote() {
     setState(() {
       todoNotes.add(TodoNote(controller.text, 'Beza'));
     });
-
-
   }
 
   @override
@@ -74,7 +74,7 @@ class _TodoState extends State<Todo> {
               ),
             ),
             FloatingActionButton(
-              onPressed: _UpdateNote,
+              onPressed: _updateNote,
               child: const Icon(Icons.add),
             ),
           ],
