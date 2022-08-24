@@ -20,34 +20,64 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class Todo extends StatelessWidget {
+class Todo extends StatefulWidget {
+  @override
+  _TodoState createState() => _TodoState();
+}
+class _TodoState extends State<Todo> {
   // Todo(String s, {Key? key}) : super(key: key);
-  Todo({Key? key}) : super(key: key);
-   // List<String> items=["abc", "def", "ghi", "klm", "nop"];
+  TextEditingController controller = TextEditingController();
+
+  // List<String> items=["abc", "def", "ghi", "klm", "nop"];
   final List<TodoNote> todoNotes = [
     TodoNote('some note', 'Beza'),
     TodoNote('another note', 'Achileas')
   ];
 
+  void _UpdateNote() {
+    setState(() {
+      todoNotes.add(TodoNote(controller.text, 'Beza'));
+    });
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todo App'),
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            key: ValueKey(todoNotes[index]),
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(todoNotes[index].note)),
-          );
-        },
-        itemCount: todoNotes.length,
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Todo App'),
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Card(
+                    key: ValueKey(todoNotes[index]),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(todoNotes[index].note)),
+                  );
+                },
+                itemCount: todoNotes.length,
+              ),
+            ),
+            SizedBox(
+              width: 200,
+              child: TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Add Todo'),
+              ),
+            ),
+            FloatingActionButton(
+              onPressed: _UpdateNote,
+              child: const Icon(Icons.add),
+            ),
+          ],
+        ));
   }
 }
